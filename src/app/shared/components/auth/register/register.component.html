@@ -1,0 +1,38 @@
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="submit(form)">
+        <div class="username">
+            <input type="text" name="usernmae" #username="ngModel" required placeholder="username" ngModel>
+            <div class="error-text" *ngIf=" username.dirty && username.hasError('required')">
+სახელი არის საჭირო
+            </div>
+        </div> 
+
+
+
+        <div class="Passwords" ngModelGroup="Password" #passwordGroup="ngModelGroup" appPasswordMatch>
+            <div class="password">
+                <input type="password"  #password="ngModel" minlength="8" appPattern name="password" required placeholder="password" ngModel>
+                <div class="error-text" *ngIf=" password.dirty && password.hasError('required')">
+                    პაროლი არის საჭირო
+               </div>
+                <div class="error-text" *ngIf=" password.dirty && password.hasError('appPattern')">
+                    {{password.getError('appPattern').erorText}}
+               </div>
+                <div class="error-text" *ngIf=" password.dirty && password.hasError('minlength')">
+                  მინიომალური სიგრძე არის  {{password.getError('minlength').requiredLength}}
+               </div>
+
+            </div>
+            <div class="confirmPassword">
+                <input type="password" name="Confirmpassword" #confirmPassword="ngModel" required placeholder="confirm password" ngModel>
+                <div class="error-text" *ngIf=" confirmPassword.dirty && confirmPassword.hasError('required')">
+                    ველი არის საჭირო
+               </div>
+                <div class="error-text" *ngIf=" confirmPassword.dirty && confirmPassword.hasError('appPasswordMatch')">
+ დაადასტურეთ პაროლი არ ემთხვევა პაროლს 
+                </div>
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary w-50" [disabled]="form.invalid">რეგისტრაცია</button>
+    </form>
+</div>
