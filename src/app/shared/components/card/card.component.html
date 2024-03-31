@@ -1,0 +1,10 @@
+<div class="card" style="width: 18rem;" >
+    <img [src]="product.image"  class=" image card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{product.title}}</h5>
+      <app-form [id]="product.id" [currenTitle]="product.title" [currentPrice]="product.price" (updateProductEmitter)="updateProductEmitterSub($event)"></app-form>
+      <p class="card-text">{{product.description.slice(0, 15)}}...</p>
+      <a  class="btn btn-primary" (click)="goDetails()">show more</a>
+      <button class="btn btn-danger w-100" (click)="deleteProduct()">delete</button>
+    </div>
+  </div>

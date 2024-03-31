@@ -1,0 +1,24 @@
+<ng-container *ngIf="data;else loading">
+<div class="container">
+    <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{data.price}}</h5>
+          <p class="card-text"><small class="text-body-secondary">{{data.rating.count}} : {{data.rating.rate}}</small></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{data.title}}</h5>
+          <p class="card-text">{{data.description}}</p>
+          <p class="card-text"><small class="text-body-secondary">{{data.category}}</small></p>
+        </div>
+        <img [src]="data.image" style="width: 300px;" class="card-img-bottom" alt="...">
+      </div>
+</div>
+</ng-container>
+
+
+
+<ng-template #loading>
+<h2 style="text-align: center;">loading ...</h2>
+</ng-template>

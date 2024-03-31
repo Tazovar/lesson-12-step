@@ -1,16 +1,13 @@
-<button class="btn btn-danger w-100" (click)="logOut()">log out</button>
-
-
-
 <div class="container">
-    <ng-container *ngIf="data$ | async as data;else loading">
-        <ng-container *ngFor="let item of data">
-    <app-card [card]="item"></app-card>
+    <ng-container *ngIf="productsArray.length > 0;else error">
+        <ng-container *ngFor="let item of productsArray">
+<app-card [product]="item" (deletedProductEmitter)="deletedProductEmitter($event)"></app-card>
         </ng-container>
-    </ng-container>    
+    </ng-container>
 </div>
 
 
-<ng-template #loading>
-<h2 style="text-align: center;">loading</h2>
+
+<ng-template #error>
+<h2 style="text-align: center;">loading ...</h2>
 </ng-template>

@@ -1,20 +1,42 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Card } from 'src/app/core/interfaces/card';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, Subject, retry } from "rxjs";
+import { Product } from "src/app/core/interface/product";
+
+
 @Injectable({
-  providedIn: 'root'
+    providedIn:"root"
 })
-export class ProxyService {
 
-  serverUrl:string  = 'https://fakestoreapi.com'
-constructor(private http:HttpClient){}
-  
-  getAll():Observable<Card[]>{
-  return this.http.get<Card[]>(`${this.serverUrl}/products`) 
-  }
+export class ProxyService{
+    // GET,POST,PUT,DELETE
+    serverUrl:string = "https://fakestoreapi.com"
 
-  getById(id:number):Observable<Card>{
-    return this.http.get<Card>(`${this.serverUrl}/products/${id}`)
-  }
+    getAllProducts():Observable<Product[]>{
+        const header = new HttpHeaders({'Content-Type':'application/json'})
+        return this.http.get<Product[]>(`${this.serverUrl}/products`,{
+            headers:header
+        })
+    }
+
+
+    updateProduct(_id:number,data:any){
+    return this.http.put(`${this.serverUrl}/products/${_id}`,data)
+    }
+
+    addNewCard(data:any){
+    return this.http.post(`${this.serverUrl}/products`,data)
+    }
+
+
+    deleteProduct(_id:number){
+        return this.http.delete(`${this.serverUrl}/products/${_id}`)
+        }
+
+        getById(id:number):Observable<Product>{
+            return this.http.get<Product>(`${this.serverUrl}/products/${id}`)
+        }
+
+    constructor(private http:HttpClient) {}
+
 }
