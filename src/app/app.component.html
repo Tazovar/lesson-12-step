@@ -1,40 +1,53 @@
-<form [formGroup]="Form" (ngSubmit)="save()">
-    <ng-container formArrayName="jobs">
-        <button (click)="addNewJob()" type="button" class="btn btn-primary w-25">add new job</button>
-        <ng-container *ngFor="let jobGroup of formService.getJobs(Form).controls;let jobIndex = index" [formGroupName]="jobIndex">
-            <div class="main_container">
-        <button class="btn btn-danger w-25" type="button" (click)="deleteJob(jobIndex)">delete job</button>
+<form [formGroup]="Form">
+<ng-container formArrayName="jobs">
+    <button type="button" (click)="addNewJob()" class="btn btn-primary w-100">add new job</button>
+    <ng-container *ngFor="let jobGroup of forService.getJobGroup(Form).controls;let jobIndex = index" [formGroupName]="jobIndex">
+        <div class="main_container">
+            
         <div class="company_name">
-            <input type="text" name="companyname" formControlName="companyname" placeholder="companyname">
+            <input type="text" placeholder="companyName" name="companyName" formControlName="companyName" >
+            <ng-container *ngIf="jobGroup.get('companyName') as companyName">
+                <div class="error-text" *ngIf="companyName?.hasError('required') && companyName?.dirty">
+                    this is required
+                </div>
+                <div class="error-text" *ngIf="companyName?.hasError('appbannedWords') && companyName?.dirty">
+                    this word is not allowed {{companyName.getError('appbannedWords').control}}
+                </div>
+                <div class="error-text" *ngIf="companyName?.hasError('pattern') && companyName?.dirty">
+                    please enter min two number
+                </div>
+            </ng-container>
         </div>
         <div class="company_website">
-            <input type="text" name="companyWebsite" formControlName="companyWebsite" placeholder="companyWebsite">
-            <div class="error-text" *ngIf="jobGroup.get('companyWebsite')?.hasError('required') && jobGroup.get('companyWebsite')?.dirty " >
-                web is required
-            </div>
+            <input type="text" placeholder="companyWebsite" name="companyWebsite" formControlName="companyWebsite">
         </div>
-        <div class="company_description">
-            <input type="text" name="companyDescription" formControlName="companyDescription" placeholder="companyDescription">
-        </div>
-        <button (click)="addNewPosition(jobGroup)" type="button" class="btn btn-dark 2-50">add new position</button>
+        <button (click)="deleteJob(jobIndex)" class="btn btn-danger w-25">delete job</button>
         <ng-container formArrayName="positions">
-<ng-container *ngFor="let positionGroup of formService.getPositions(jobGroup).controls;let positionIndex=index" [formGroupName]="positionIndex">
-    <button  (click)="deletePosition(jobGroup,positionIndex)" type="button" class="btn btn-danger w-25">delete position</button>
+            <button type="button" class="btn btn-primary w-50" (click)="addPosition(jobGroup)">add position</button>
 
-    <div class="position_title">
-        <input type="text" placeholder="positionTitle" name="positionTitle" formControlName="positionTitle">
-    </div>
-    <div class="start_date">
-        <input type="date" placeholder="startDate" name="startDate" formControlName="startDate">
-    </div>
+            <ng-container *ngFor="let positionGroup of forService.getPositions(jobGroup).controls;let positionIndex = index" [formGroupName]="positionIndex">
+                <div class="position_name">
+                    <input type="text" placeholder="positionName" name="positionName" formControlName="positionName">
+                </div>
 
-    <div class="end_date">
-        <input type="date" placeholder="endDate" name="endDate" formControlName="endDate">
-    </div>
-</ng-container>
+                <div class="position_description">
+                    <input type="text" placeholder="positionDescription" name="positionDescription" formControlName="positionDescription">
+                </div>
+                
+                <div class="start_date">
+                    <input type="date" placeholder="startDate" name="startDate" formControlName="startDate">
+                </div>
+
+                <div class="end_date">
+                    <input type="date" name="endDate" placeholder="endDate" formControlName="endDate">
+                </div>
+                <button type="button" class="btn btn-danger w-100" (click)="deletePosition(jobGroup,positionIndex)">delete position</button>
+            </ng-container>
+            
         </ng-container>
     </div>
     </ng-container>
-</ng-container>  
-<button type="submit" class="btn btn-primary w-50" [disabled]="Form.invalid">save</button>
+</ng-container>
+
+<button type="submit" class="btn btn-dark w-100" [disabled]="Form.invalid">submit</button>
 </form>

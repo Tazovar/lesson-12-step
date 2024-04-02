@@ -25,3 +25,22 @@ form{
     justify-content: center;
     align-items: center;
 }
+
+.error-text{
+    color: red;
+    font-family: sans-serif;
+    font-weight: bold;
+    animation-duration: 0.3s;
+    animation-name: error;
+
+}
+
+
+@keyframes  error {
+    from{
+transform: translateY(-5px);
+    }
+    to{
+        transform: translateY(0px);
+    }
+}

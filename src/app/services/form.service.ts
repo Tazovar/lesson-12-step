@@ -1,61 +1,58 @@
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-
+import { FormArray, FormBuilder, FormGroup, Validators,Validator } from "@angular/forms";
+import { appbannedWords } from "../errors/bannedwords";
 
 
 @Injectable({
-    providedIn:'root'
+    providedIn:"root"
 })
-
 
 export class FormService{
     constructor(private formBuilder:FormBuilder){}
 
-
     createJob(){
         return this.formBuilder.group({
-            companyname:['',[Validators.required]],
-            companyWebsite:['',[Validators.required]],
-            companyDescription:['', [Validators.required]],
-            positions:this.formBuilder.array([])
+            companyName:['',[Validators.required, appbannedWords(['tazo','luka','giorgi','saba']),Validators.pattern(/[0-9]{2}/)]],
+            companyWebsite:['', [Validators.required]],
+            positions:this.formBuilder.array([]),
+            Password:this.formBuilder.group({
+
+            })
         })
     }
 
-    createPosition(){
+
+    createPositions(){
         return this.formBuilder.group({
-            positionTitle:['', [Validators.required]],
-            startDate:['',Validators.required],
-            endDate:['',Validators.required]
+            positionName:['',[Validators.required]],
+            positionDescription:['', [Validators.required]],
+            startDate:['', [Validators.required]],
+            endDate:['', [Validators.required]],
         })
     }
 
 
-    getJobs(Form:FormGroup){
-let jobs =Form.get('jobs') as FormArray
-return jobs
+    getJobGroup(Form:FormGroup){
+return Form.get('jobs') as FormArray
     }
 
-    addNewJob(Form:FormGroup){
-        this.getJobs(Form).push(this.createJob())
+    getPositions(jobGroup:FormGroup | any){
+        return jobGroup.get('positions') as FormArray
+    }
+
+
+    addJob(Form:FormGroup){
+        this.getJobGroup(Form).push(this.createJob())
     }
 
     deleteJob(Form:FormGroup,jobIndex:number){
-        this.getJobs(Form).removeAt(jobIndex)
+this.getJobGroup(Form).removeAt(jobIndex)
     }
 
-
-    getPositions(jobGroup:FormGroup | any){
-let positions = jobGroup.get('positions') as FormArray
-return positions;
+    addPosition(jobGroup:FormGroup){
+     this.getPositions(jobGroup).push(this.createPositions())
     }
-
-    addNewPosition(JobGroup:FormGroup){
-        this.getPositions(JobGroup).push(this.createPosition())
+    deletePosition(jobGroup:FormGroup,positionIndex:number){
+        this.getPositions(jobGroup).removeAt(positionIndex)
     }
-
-    deletePosition(JobGroup:FormGroup,positionIndex:number){
-        this.getPositions(JobGroup).removeAt(positionIndex)
-    }
-
-
 }

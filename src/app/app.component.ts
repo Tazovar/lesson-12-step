@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormService } from './services/form.service';
 
 @Component({
@@ -7,43 +7,30 @@ import { FormService } from './services/form.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit  {
-  constructor(private formBuilder:FormBuilder,public formService:FormService){}
+export class AppComponent implements OnInit{
+Form!:FormGroup
+constructor(private formBuilder:FormBuilder,public forService:FormService){}
 
-  Form!:FormGroup
-
-
-  ngOnInit():void{
-    this.Form = this.formBuilder.group({
-      jobs:this.formBuilder.array([])
-    })
-    this.formService.addNewJob(this.Form)
-    let group:FormGroup | any = this.formService.getJobs(this.Form).at(0)
-    this.formService.addNewPosition(group)
-  }
+ngOnInit(): void {
+this.Form = this.formBuilder.group({
+  jobs:this.formBuilder.array([])
+})    
+}
 
 
-  addNewJob(){
-    this.formService.addNewJob(this.Form)
-    let group:FormGroup | any = this.formService.getJobs(this.Form).at(this.formService.getJobs(this.Form).length - 1)
-    this.formService.addNewPosition(group)
-    
-    
-    }
+addNewJob(){
+  this.forService.addJob(this.Form)
+}
 
-  deleteJob(jobIndex:number) {
-this.formService.deleteJob(this.Form,jobIndex)
-  }
+deleteJob(jobIndex:number){
+this.forService.deleteJob(this.Form,jobIndex)
+}
 
-  addNewPosition(jobGroup:FormGroup  | any){
-this.formService.addNewPosition(jobGroup)
-  }
+addPosition(jobGroup:FormGroup | any){
+this.forService.addPosition(jobGroup)
+}
 
-  deletePosition(jobGroup:FormGroup | any, positionIndex:number){
-this.formService.deletePosition(jobGroup,positionIndex)
-  }
-
-  save(){
-    console.log(this.Form.value)
-  }
+deletePosition(jobGroup:FormGroup | any, positionIndex:number){
+this.forService.deletePosition(jobGroup,positionIndex)
+}
 }
