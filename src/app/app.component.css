@@ -1,0 +1,27 @@
+input{
+    display: block;
+    width:100%;
+    padding: 10px;
+    color: black;
+    font-family: sans-serif;
+    margin: 10px 0px;
+    font-weight: bold;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main_container{
+    border: 1px solid black;
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}

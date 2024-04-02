@@ -1,1 +1,40 @@
-<router-outlet></router-outlet>
+<form [formGroup]="Form" (ngSubmit)="save()">
+    <ng-container formArrayName="jobs">
+        <button (click)="addNewJob()" type="button" class="btn btn-primary w-25">add new job</button>
+        <ng-container *ngFor="let jobGroup of formService.getJobs(Form).controls;let jobIndex = index" [formGroupName]="jobIndex">
+            <div class="main_container">
+        <button class="btn btn-danger w-25" type="button" (click)="deleteJob(jobIndex)">delete job</button>
+        <div class="company_name">
+            <input type="text" name="companyname" formControlName="companyname" placeholder="companyname">
+        </div>
+        <div class="company_website">
+            <input type="text" name="companyWebsite" formControlName="companyWebsite" placeholder="companyWebsite">
+            <div class="error-text" *ngIf="jobGroup.get('companyWebsite')?.hasError('required') && jobGroup.get('companyWebsite')?.dirty " >
+                web is required
+            </div>
+        </div>
+        <div class="company_description">
+            <input type="text" name="companyDescription" formControlName="companyDescription" placeholder="companyDescription">
+        </div>
+        <button (click)="addNewPosition(jobGroup)" type="button" class="btn btn-dark 2-50">add new position</button>
+        <ng-container formArrayName="positions">
+<ng-container *ngFor="let positionGroup of formService.getPositions(jobGroup).controls;let positionIndex=index" [formGroupName]="positionIndex">
+    <button  (click)="deletePosition(jobGroup,positionIndex)" type="button" class="btn btn-danger w-25">delete position</button>
+
+    <div class="position_title">
+        <input type="text" placeholder="positionTitle" name="positionTitle" formControlName="positionTitle">
+    </div>
+    <div class="start_date">
+        <input type="date" placeholder="startDate" name="startDate" formControlName="startDate">
+    </div>
+
+    <div class="end_date">
+        <input type="date" placeholder="endDate" name="endDate" formControlName="endDate">
+    </div>
+</ng-container>
+        </ng-container>
+    </div>
+    </ng-container>
+</ng-container>  
+<button type="submit" class="btn btn-primary w-50" [disabled]="Form.invalid">save</button>
+</form>
