@@ -1,53 +1,24 @@
-<form [formGroup]="Form">
-<ng-container formArrayName="jobs">
-    <button type="button" (click)="addNewJob()" class="btn btn-primary w-100">add new job</button>
-    <ng-container *ngFor="let jobGroup of forService.getJobGroup(Form).controls;let jobIndex = index" [formGroupName]="jobIndex">
-        <div class="main_container">
-            
-        <div class="company_name">
-            <input type="text" placeholder="companyName" name="companyName" formControlName="companyName" >
-            <ng-container *ngIf="jobGroup.get('companyName') as companyName">
-                <div class="error-text" *ngIf="companyName?.hasError('required') && companyName?.dirty">
-                    this is required
-                </div>
-                <div class="error-text" *ngIf="companyName?.hasError('appbannedWords') && companyName?.dirty">
-                    this word is not allowed {{companyName.getError('appbannedWords').control}}
-                </div>
-                <div class="error-text" *ngIf="companyName?.hasError('pattern') && companyName?.dirty">
-                    please enter min two number
-                </div>
-            </ng-container>
-        </div>
-        <div class="company_website">
-            <input type="text" placeholder="companyWebsite" name="companyWebsite" formControlName="companyWebsite">
-        </div>
-        <button (click)="deleteJob(jobIndex)" class="btn btn-danger w-25">delete job</button>
-        <ng-container formArrayName="positions">
-            <button type="button" class="btn btn-primary w-50" (click)="addPosition(jobGroup)">add position</button>
 
-            <ng-container *ngFor="let positionGroup of forService.getPositions(jobGroup).controls;let positionIndex = index" [formGroupName]="positionIndex">
-                <div class="position_name">
-                    <input type="text" placeholder="positionName" name="positionName" formControlName="positionName">
-                </div>
+<!-- <h1>{{ 'tazo_gelashvili'| test}}</h1> -->
 
-                <div class="position_description">
-                    <input type="text" placeholder="positionDescription" name="positionDescription" formControlName="positionDescription">
-                </div>
-                
-                <div class="start_date">
-                    <input type="date" placeholder="startDate" name="startDate" formControlName="startDate">
-                </div>
+<!-- 
+<input type="text" [(ngModel)]="searchText">
 
-                <div class="end_date">
-                    <input type="date" name="endDate" placeholder="endDate" formControlName="endDate">
-                </div>
-                <button type="button" class="btn btn-danger w-100" (click)="deletePosition(jobGroup,positionIndex)">delete position</button>
-            </ng-container>
-            
-        </ng-container>
+
+<ng-container *ngIf="searchText">
+    <div *ngFor="let item of array | test:searchText">
+        {{item.name}}
     </div>
+</ng-container> -->
+
+
+<ng-container *ngIf="data$ | s:sub:arrayy">
+    <ng-container *ngFor="let item of arrayy">
+    {{item.id}}
     </ng-container>
 </ng-container>
 
-<button type="submit" class="btn btn-dark w-100" [disabled]="Form.invalid">submit</button>
-</form>
+<!-- <ng-container *ngFor="let item of dt">
+    {{item.title}}
+    <img width="200" [src]="item.image" alt="">
+</ng-container> -->

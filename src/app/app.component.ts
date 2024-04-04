@@ -1,36 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormService } from './services/form.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ProxyService } from './service/proxy.service';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-Form!:FormGroup
-constructor(private formBuilder:FormBuilder,public forService:FormService){}
+export class AppComponent implements OnInit, OnDestroy {
+  sub:Subject<any> = new Subject();
+arrayy:Array<any> = []
+data$!:Observable<any>
 
-ngOnInit(): void {
-this.Form = this.formBuilder.group({
-  jobs:this.formBuilder.array([])
-})    
-}
+  ngOnDestroy(): void {    
+    this.sub.next("")
+    this.sub.complete();
+  }
+  constructor(private proxy:ProxyService){}
+//   searchText:string = ''
+//   array = [
+//     {
+//       name:"tazo",
+//       age:123
+//     },
+//     {
+//       name:"giorgi",
+// age:12    
+// },
+//     {
+//       name:"valeri",
+//       age:12
+//     }
+//   ]
+
+  ngOnInit(): void {
+    console.log(this.arrayy);
+
+  this.data$ = this.proxy.get();  
+  }
 
 
-addNewJob(){
-  this.forService.addJob(this.Form)
-}
-
-deleteJob(jobIndex:number){
-this.forService.deleteJob(this.Form,jobIndex)
-}
-
-addPosition(jobGroup:FormGroup | any){
-this.forService.addPosition(jobGroup)
-}
-
-deletePosition(jobGroup:FormGroup | any, positionIndex:number){
-this.forService.deletePosition(jobGroup,positionIndex)
-}
 }

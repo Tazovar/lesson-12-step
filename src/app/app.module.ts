@@ -5,9 +5,13 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http';
+import { TestPipe } from './pipes/test.pipe';
+import { SPipe } from './pipes/s.pipe';
 @NgModule({
   declarations: [
     AppComponent,
+    TestPipe,
+    SPipe,
     ],
   imports: [
     BrowserModule,

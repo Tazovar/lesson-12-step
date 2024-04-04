@@ -1,9 +1,0 @@
-.ng-invalid.ng-dirty:not(form):not([formGroup]):not([formGroupName]){
-    border: 1px solid red;
-    outline: 1px solid red;
-}
-
-.ng-valid.ng-dirty:not(form):not([formGroup]):not([formGroupName]){
-    border: 1px solid green;
-    outline: 1px solid green;
-}
