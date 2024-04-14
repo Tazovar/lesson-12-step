@@ -1,0 +1,16 @@
+<mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+      {{card.title}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{card.description.slice(0,102)}}...
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+     <strong>{{card.price | currency}}</strong>
+      <img width="150" [src]="card.image" alt="">
+      <button mat-raised-button (click)="addToCart()">add to card</button>
+      <button mat-raised-button (click)="showDetails()">show image</button>
+    </mat-expansion-panel>
+  </mat-accordion>

@@ -1,24 +1,2 @@
-
-<!-- <h1>{{ 'tazo_gelashvili'| test}}</h1> -->
-
-<!-- 
-<input type="text" [(ngModel)]="searchText">
-
-
-<ng-container *ngIf="searchText">
-    <div *ngFor="let item of array | test:searchText">
-        {{item.name}}
-    </div>
-</ng-container> -->
-
-
-<ng-container *ngIf="data$ | s:sub:arrayy">
-    <ng-container *ngFor="let item of arrayy">
-    {{item.id}}
-    </ng-container>
-</ng-container>
-
-<!-- <ng-container *ngFor="let item of dt">
-    {{item.title}}
-    <img width="200" [src]="item.image" alt="">
-</ng-container> -->
+<app-header></app-header>
+<router-outlet></router-outlet>

@@ -1,0 +1,23 @@
+<p>
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span routerLink="/">My App</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="matBadgeCount > 0" [matBadge]="matBadgeCount" matBadgeColor="warn" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="matBadgeCount == 0 || matBadgeCount == undefined" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>share</mat-icon>
+      </button>
+
+
+      <mat-menu #menu="matMenu">
+<button mat-menu-item routerLink="/basket">show basket</button>
+      </mat-menu>
+    </mat-toolbar>
+  </p>
